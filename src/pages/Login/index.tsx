@@ -5,6 +5,8 @@ import { formArr, initialValue, url } from "../../helper";
 import axios from "axios";
 import { LayoutContext } from "../../context/LayoutContext";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie"
+import Jwt from "jwt-decode"
 
 const Login = () => {
   const { setLoading, setMessage, setStatus } = useContext(LayoutContext);
@@ -31,6 +33,12 @@ const Login = () => {
       if (result.status === 200) {
         setMessage("Success logged in!");
         setStatus(true);
+
+        Cookies.set("access_token", result.data.access_token)
+        Cookies.set("refresh_token", result.data.refresh_token)
+        const user = Jwt(result.data.access_token)
+
+        // Cookies.set("user", JSON.parse(user))
       }
     } catch (error) {
       setMessage("Logged in failed!");
