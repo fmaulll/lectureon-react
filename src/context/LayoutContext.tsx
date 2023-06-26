@@ -1,27 +1,39 @@
-import { createContext, FC, useState } from "react";
+import { createContext, FC, useEffect, useState } from "react";
+import { UserLoginTypes } from "../type";
+import Cookies from "js-cookie"
 
 interface Props {
   children: React.ReactNode;
 }
 
 interface LayoutContextData {
+  user: UserLoginTypes | null;
   status: boolean;
   message: string;
   loading: boolean;
-  setLoading: (bool: boolean) => void;
-  setMessage: (message: string) => void;
-  setStatus: (bool: boolean) => void;
-  setAction: (callback: Function) => void
+  accessToken: string;
+  refreshToken: string;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setMessage: React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<boolean>>
+  setAction: (callback: Function) => void;
+  setAccessToken: React.Dispatch<React.SetStateAction<string>>
+  setRefreshToken: React.Dispatch<React.SetStateAction<string>>
 }
 
 const initialValue = {
+  user: null,
   status: false,
   message: "",
   loading: false,
+  accessToken: "",
+  refreshToken: "",
   setLoading: () => {},
   setMessage: () => {},
   setStatus: () => {},
-  setAction: () => {}
+  setAction: () => {},
+  setAccessToken: () => {},
+  setRefreshToken: () => {}
 };
 
 export const LayoutContext = createContext<LayoutContextData>(initialValue);
@@ -32,24 +44,38 @@ const LayoutProvider: FC<Props> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [status, setStatus] = useState<boolean>(false);
+  const [user, setUser] = useState<UserLoginTypes | null>(null)
+  const [accessToken, setAccessToken] = useState<string>("")
+  const [refreshToken, setRefreshToken] = useState<string>("")
 
   const setAction = (callback: Function) => {
-    callback()
-  }
-
-//   const setLoading = (bool: boolean) => {
-//     console.log(bool)
-//     // setLoadingState(bool)
-//   }
-//   const setMessage = (string: string) => {
-//     setMessageState(string)
-//   }
-//   const setStatus = (bool: boolean) => {
-//     setStatusState(bool)
-//   }
+    callback();
+  };
+  
+  useEffect(() => {
+    const user = JSON.parse(Cookies.get("user")!)
+    if (user) {
+      setUser(user)
+    };
+  }, [])
 
   return (
-    <Provider value={{ loading, message, status, setLoading, setMessage, setStatus, setAction }}>
+    <Provider
+      value={{
+        user,
+        loading,
+        message,
+        status,
+        accessToken,
+        refreshToken,
+        setLoading,
+        setMessage,
+        setStatus,
+        setAction,
+        setAccessToken,
+        setRefreshToken,
+      }}
+    >
       {children}
     </Provider>
   );
