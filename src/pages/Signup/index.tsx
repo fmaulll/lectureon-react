@@ -51,10 +51,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#242424]">
+    <div className="flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-[500px] bg-white p-8 rounded-lg shadow-lg"
+        className="flex flex-col w-[500px] bg-white p-8 rounded-lg shadow-2xl border"
       >
         <h1 className="text-2xl font-bold text-center mb-8">SIGNUP</h1>
         {formArr.map((item, index) => {
