@@ -4,12 +4,14 @@ import { useValidateForm } from "../../hooks/useValidateForm";
 import { formArr, initialValue, url } from "../../helper";
 import axios from "axios";
 import { LayoutContext } from "../../context/LayoutContext";
-import { Link } from "react-router-dom";
-import Cookies from "js-cookie"
-import Jwt from "jwt-decode"
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import Jwt from "jwt-decode";
 
 const Login = () => {
-  const { setLoading, setMessage, setStatus } = useContext(LayoutContext);
+  const navigate = useNavigate();
+  const { setLoading, setMessage, setStatus, setAction, setUser } =
+    useContext(LayoutContext);
   const [dataRequest, setDataRequest] = useState<UserTypes>({
     ...initialValue,
     email: "test@gmail.com",
@@ -33,15 +35,22 @@ const Login = () => {
       if (result.status === 200) {
         setMessage("Success logged in!");
         setStatus(true);
+        setAction(() => {
+          setMessage("");
+          navigate("/home");
+        });
 
-        Cookies.set("access_token", result.data.access_token)
-        Cookies.set("refresh_token", result.data.refresh_token)
-        const user = Jwt(result.data.access_token)
+        Cookies.set("access_token", result.data.access_token);
+        Cookies.set("refresh_token", result.data.refresh_token);
 
-        // Cookies.set("user", JSON.parse(user))
+        const user = Jwt(result.data.access_token);
+
+        setUser(user);
+
+        Cookies.set("user", JSON.stringify(user));
       }
-    } catch (error) {
-      setMessage("Logged in failed!");
+    } catch (error: any) {
+      setMessage("Log in failed! " + error.response.data.message);
       setStatus(false);
     } finally {
       setLoading(false);
@@ -49,7 +58,6 @@ const Login = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
     e.preventDefault();
     if (validate.length !== 1) {
       return;
@@ -64,10 +72,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#242424]">
+    <div className="flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-[500px] bg-white p-8 rounded-lg shadow-lg"
+        className="flex flex-col w-[500px] bg-white p-8 rounded-lg shadow-2xl border"
       >
         <h1 className="text-2xl font-bold text-center mb-8">LOGIN</h1>
         {formArr.map((item, index) => {
@@ -93,14 +101,7 @@ const Login = () => {
             </Fragment>
           );
         })}
-        <div className="mt-4">
-          {validate.map((item, index) => (
-            <Fragment key={index}>
-              {validate.length !== 1 && <p className="text-red-500">{item}</p>}
-            </Fragment>
-          ))}
-        </div>
-        <button className="bg-[#242424] rounded-lg p-4 text-white font-bold mt-4 hover:bg-[#303030] active:bg-[#101010] duration-200">
+        <button className="bg-[#242424] rounded-lg p-4 text-white font-bold mt-8 hover:bg-[#303030] active:bg-[#101010] duration-200">
           Login
         </button>
         <div className="text-center mt-4">Don't have an account?</div>
