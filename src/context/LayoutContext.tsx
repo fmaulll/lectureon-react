@@ -19,6 +19,7 @@ interface LayoutContextData {
   setAction: (callback: Function) => void;
   setAccessToken: React.Dispatch<React.SetStateAction<string>>
   setRefreshToken: React.Dispatch<React.SetStateAction<string>>
+  setUser: React.Dispatch<React.SetStateAction<any>>
 }
 
 const initialValue = {
@@ -33,7 +34,8 @@ const initialValue = {
   setStatus: () => {},
   setAction: () => {},
   setAccessToken: () => {},
-  setRefreshToken: () => {}
+  setRefreshToken: () => {},
+  setUser: () => {}
 };
 
 export const LayoutContext = createContext<LayoutContextData>(initialValue);
@@ -53,9 +55,10 @@ const LayoutProvider: FC<Props> = ({ children }) => {
   };
   
   useEffect(() => {
-    const user = JSON.parse(Cookies.get("user")!)
+    const user = Cookies.get("user")
+    
     if (user) {
-      setUser(user)
+      setUser(JSON.parse(user))
     };
   }, [])
 
@@ -74,6 +77,7 @@ const LayoutProvider: FC<Props> = ({ children }) => {
         setAction,
         setAccessToken,
         setRefreshToken,
+        setUser,
       }}
     >
       {children}
