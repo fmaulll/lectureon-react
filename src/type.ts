@@ -6,9 +6,8 @@ export type UserTypes = {
 };
 
 export type UserLoginTypes = {
+  id: number;
   username: string;
   email: string;
   role: string;
-  access_token: string;
-  refresh_token: string;
 }
