@@ -1,6 +1,6 @@
 import { createContext, FC, useEffect, useState } from "react";
 import { UserLoginTypes } from "../type";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
 interface Props {
   children: React.ReactNode;
@@ -13,13 +13,13 @@ interface LayoutContextData {
   loading: boolean;
   accessToken: string;
   refreshToken: string;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  setMessage: React.Dispatch<React.SetStateAction<string>>
-  setStatus: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+  setStatus: React.Dispatch<React.SetStateAction<boolean>>;
   setAction: (callback: Function) => void;
-  setAccessToken: React.Dispatch<React.SetStateAction<string>>
-  setRefreshToken: React.Dispatch<React.SetStateAction<string>>
-  setUser: React.Dispatch<React.SetStateAction<any>>
+  setAccessToken: React.Dispatch<React.SetStateAction<string>>;
+  setRefreshToken: React.Dispatch<React.SetStateAction<string>>;
+  setUser: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const initialValue = {
@@ -35,7 +35,7 @@ const initialValue = {
   setAction: () => {},
   setAccessToken: () => {},
   setRefreshToken: () => {},
-  setUser: () => {}
+  setUser: () => {},
 };
 
 export const LayoutContext = createContext<LayoutContextData>(initialValue);
@@ -46,21 +46,21 @@ const LayoutProvider: FC<Props> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [status, setStatus] = useState<boolean>(false);
-  const [user, setUser] = useState<UserLoginTypes | null>(null)
-  const [accessToken, setAccessToken] = useState<string>("")
-  const [refreshToken, setRefreshToken] = useState<string>("")
+  const [user, setUser] = useState<UserLoginTypes | null>(null);
+  const [accessToken, setAccessToken] = useState<string>("");
+  const [refreshToken, setRefreshToken] = useState<string>("");
 
   const setAction = (callback: Function) => {
     callback();
   };
-  
+
   useEffect(() => {
-    const user = Cookies.get("user")
-    
+    const user = Cookies.get("user");
+
     if (user) {
-      setUser(JSON.parse(user))
-    };
-  }, [])
+      setUser(JSON.parse(user));
+    }
+  }, []);
 
   return (
     <Provider
