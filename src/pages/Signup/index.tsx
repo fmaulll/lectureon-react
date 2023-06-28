@@ -34,7 +34,7 @@ const Signup = () => {
         })
       }
     } catch (error) {
-      setMessage("Failed to register!");
+      setMessage("Failed to register! " + error);
       setStatus(false);
     } finally {
       setLoading(false);
