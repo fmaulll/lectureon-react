@@ -2,16 +2,27 @@ import { FC, useContext } from "react";
 import { LayoutContext } from "../context/LayoutContext";
 import ModalLoader from "../components/ModalLoader";
 import ModalSuccessFailed from "../components/ModalSuccessFailed";
+import Header from "./Header";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { loading, message, status, setMessage, setStatus } = useContext(LayoutContext);
+  const { loading, message, status, user, setMessage, setStatus } =
+    useContext(LayoutContext);
   return (
-    <div className="min-h-screen bg-gray-800">
-      {children}
+    <div className="bg-[#f0f0f0]">
+      {user ? (
+        <div className="h-screen">
+          <Header />
+          {children}
+        </div>
+      ) : (
+        <div className="h-screen flex justify-center items-center">
+          {children}
+        </div>
+      )}
       {loading ? <ModalLoader /> : null}
       {message ? (
         <ModalSuccessFailed
