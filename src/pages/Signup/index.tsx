@@ -33,8 +33,8 @@ const Signup = () => {
             navigate("/")
         })
       }
-    } catch (error) {
-      setMessage("Failed to register! " + error);
+    } catch (error: any) {
+      setMessage("Failed to register! " + String(error.response.data.message ? error.response.data.message : error));
       setStatus(false);
     } finally {
       setLoading(false);
