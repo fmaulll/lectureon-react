@@ -34,7 +34,9 @@ const Login = () => {
         setMessage("Success logged in!");
         setStatus(true);
         setAction(() => {
-          setMessage("");
+          setTimeout(() => {
+            setMessage("");
+          }, 1000) 
           navigate("/home");
         });
 
