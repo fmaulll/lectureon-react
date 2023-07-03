@@ -1,6 +1,5 @@
 import { Fragment, useContext, useState } from "react";
 import { UserTypes } from "../../type";
-import { useValidateForm } from "../../hooks/useValidateForm";
 import { formArr, initialValue, url } from "../../helper";
 import axios from "axios";
 import { LayoutContext } from "../../context/LayoutContext";
@@ -16,7 +15,6 @@ const Login = () => {
     ...initialValue,
     email: "test@gmail.com",
   });
-  const validate = useValidateForm(dataRequest);
 
   const handleChange = (key: string, value: string) => {
     setDataRequest((prev) => {
@@ -60,7 +58,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validate.length !== 1) {
+    if (!dataRequest.username || !dataRequest.password) {
       return;
     }
 
