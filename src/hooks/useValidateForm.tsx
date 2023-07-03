@@ -7,8 +7,8 @@ export const useValidateForm = (data: UserTypes) => {
         error.push("Input can't be empty!")
     }
 
-    if (data.username.length < 4) {
-        error.push("Username must be 4 letters long!")
+    if (data.username.length < 4 || data.username.includes(" ")) {
+        error.push("Username must be 4 letters long & not containing empty space!")
     }
 
     if (!useValidateEmail(data.email)) {
