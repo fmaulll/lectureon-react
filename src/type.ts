@@ -6,7 +6,9 @@ export type UserTypes = {
 };
 
 export type UserLoginTypes = {
-  id: number;
+  sub: number;
+  firstName: string;
+  lastName: string;
   username: string;
   email: string;
   role: string;
