@@ -1,29 +1,40 @@
 import { FC, useContext } from "react";
 import OutsideWrapper from "../../components/OutsideWrapper";
 import { LayoutContext } from "../../context/LayoutContext";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   onClose: () => void;
 }
 
 const ProfileMenu: FC<Props> = ({ onClose }) => {
-  const { user } = useContext(LayoutContext);
+  const { user, setUser } = useContext(LayoutContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUser(null);
+    Cookies.remove("user");
+    Cookies.remove("refresh_token");
+    Cookies.remove("access_token");
+    navigate("/");
+  };
 
   const options = [
     {
       title: "Profile",
       subTitle: user?.username,
-      href: "/",
+      action: () => {},
     },
     {
       title: "Settings",
       subTitle: "",
-      href: "/",
+      action: () => {},
     },
     {
       title: "Log out",
       subTitle: "",
-      href: "/",
+      action: () => handleLogout(),
     },
   ];
 
@@ -34,6 +45,7 @@ const ProfileMenu: FC<Props> = ({ onClose }) => {
           <div
             key={index}
             className="p-4 hover:bg-[#f0f0f0] cursor-pointer duration-200 active:bg-[#e0e0e0]"
+            onClick={item.action}
           >
             <h3 className="font-bold">{item?.title}</h3>
             <p>{item.subTitle}</p>
