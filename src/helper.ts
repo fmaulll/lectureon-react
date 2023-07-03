@@ -1,5 +1,18 @@
 import { UserTypes } from "./type";
 
+export const formName = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+  {
+    name: "lastName",
+    label: "Last Name",
+    type: "text",
+  },
+]
+
 export const formArr = [
   {
     name: "username",
