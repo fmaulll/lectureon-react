@@ -19,7 +19,7 @@ const Layout: FC<Props> = ({ children }) => {
           {children}
         </div>
       ) : (
-        <div className="h-screen flex justify-center items-center">
+        <div className=" bg-simple-wallpaper h-screen px-24 flex items-center">
           {children}
         </div>
       )}
