@@ -13,3 +13,14 @@ export type UserLoginTypes = {
   email: string;
   role: string;
 }
+
+export type PostTypes = {
+  id: number;
+  authorId: number;
+  authorName: string;
+  title: string;
+  subTitle: string;
+  description: string;
+  image: string;
+  videoUrl: string;
+};
