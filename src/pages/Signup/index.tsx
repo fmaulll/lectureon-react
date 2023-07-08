@@ -40,7 +40,7 @@ const Signup = () => {
         });
       }
     } catch (error: any) {
-      setMessage("Failed to register! " + String(error.response.data.message ? error.response.data.message : error));
+      setMessage("Failed to register! " + String(error));
       setStatus(false);
     } finally {
       setLoading(false);

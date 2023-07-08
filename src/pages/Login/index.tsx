@@ -50,8 +50,7 @@ const Login = () => {
         Cookies.set("user", JSON.stringify(user));
       }
     } catch (error: any) {
-      console.log(error)
-      setMessage("Log in failed! " + String(error.response.data.message ? error.response.data.message : error));
+      setMessage("Log in failed! " + String(error));
       setStatus(false);
     } finally {
       setLoading(false);
