@@ -21,6 +21,5 @@ export type PostTypes = {
   title: string;
   subTitle: string;
   description: string;
-  image: string;
-  videoUrl: string;
+  images: string[];
 };
