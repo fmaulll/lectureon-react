@@ -24,7 +24,6 @@ const Home = () => {
           setData(arr);
         }
       } catch (error: any) {
-        console.log(error)
         setMessage("Failed to get content! " + String(error));
         setStatus(false);
       } finally {
