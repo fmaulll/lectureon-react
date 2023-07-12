@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { LayoutContext } from "../../context/LayoutContext";
 import { PostTypes } from "../../type";
 import { url } from "../../helper";
+import PostComponent from "../../components/PostComponent";
 
 const Home = () => {
   const { setLoading, setMessage, setStatus } = useContext(LayoutContext);
@@ -18,8 +19,8 @@ const Home = () => {
           const arr = result.data.map((item: any) => {
             return {
               ...item,
-              images: JSON.parse(item.images) || []
-            }
+              images: JSON.parse(item.images) || [],
+            };
           });
           setData(arr);
         }
@@ -34,25 +35,10 @@ const Home = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="px-[500px] py-[30px]">
       {data.map((post, index) => (
-        <div key={index}>
-          {post?.images?.map((image, idx) => (
-            <img key={idx} className="w-[125px]" src={image} alt={post.subTitle} />
-          ))}
-          {/* <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/Y0Vo8x8ww7A"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe> */}
-          <h1>{post.title}</h1>
-          <h2>{post.authorName}</h2>
-          <h3>{post.subTitle}</h3>
-          <p>{post.description}</p>
+        <div key={index} className="mb-8">
+          <PostComponent data={post} />
         </div>
       ))}
     </div>
