@@ -7,6 +7,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'simple-wallpaper': "url('/src/assets/SimpleWallpaper.webp')",
+      },
+      colors: {
+        darkTransparent: "rgba(0, 0, 0, 0.8)",
+        darkTransparentLight: "rgba(0, 0, 0, 0.2)",
       }
     },
   },
