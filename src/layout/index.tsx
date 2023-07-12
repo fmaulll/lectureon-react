@@ -14,7 +14,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="bg-[#f0f0f0]">
       {user ? (
-        <div className="h-screen">
+        <div className="min-h-screen">
           <Header />
           {children}
         </div>
