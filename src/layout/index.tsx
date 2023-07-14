@@ -4,7 +4,7 @@ import ModalLoader from "../components/ModalLoader";
 import ModalSuccessFailed from "../components/ModalSuccessFailed";
 import Header from "./Header";
 import { useState } from "react";
-import NewPost from "../pages/NewPost";
+import NewPost from "../components/NewPost";
 import {BsPlus} from "react-icons/bs"
 interface Props {
   children: React.ReactNode;
