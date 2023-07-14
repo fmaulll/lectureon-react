@@ -23,3 +23,11 @@ export type PostTypes = {
   description: string;
   images: string[];
 };
+
+export type NewPostTypes = {
+  authorId: number | null | undefined;
+  title: string;
+  subTitle: string;
+  description: string;
+  images: any[];
+};
