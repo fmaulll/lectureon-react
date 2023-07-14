@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, Fragment } from "react";
 import { LayoutContext } from "../../context/LayoutContext";
 import { PostTypes } from "../../type";
 import { url } from "../../helper";
@@ -15,7 +15,7 @@ const Home = () => {
       try {
         const result = await axios.get(`${url}/post`);
 
-        if (result.status === 200) {
+        if (result.status === 200 && result.data) {
           const arr = result.data.map((item: any) => {
             return {
               ...item,
@@ -36,11 +36,17 @@ const Home = () => {
   }, []);
   return (
     <div className="px-[500px] py-[30px]">
-      {data.map((post, index) => (
-        <div key={index} className="mb-8">
-          <PostComponent data={post} />
-        </div>
-      ))}
+      {data.length > 0 ? (
+        <Fragment>
+          {data.map((post, index) => (
+            <div key={index} className="mb-8">
+              <PostComponent data={post} />
+            </div>
+          ))}
+        </Fragment>
+      ) : (
+        "No Content"
+      )}
     </div>
   );
 };
