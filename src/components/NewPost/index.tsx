@@ -50,29 +50,30 @@ const NewPost: FC<Props> = ({ onClose }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
-    const fetchData = async() => {
+
+    const fetchData = async () => {
       try {
         const result = await axios.postForm(`${url}/post`, {
           id: dataRequest.authorId,
           title: dataRequest.title,
           subTitle: dataRequest.subTitle,
           description: dataRequest.description,
-          images: dataRequest.images
-        })
+          images: dataRequest.images,
+        });
         if (result.status === 201) {
           setMessage("Success create a new post!");
           setStatus(true);
+          onClose();
         }
-      } catch(error: any) {
+      } catch (error: any) {
         setMessage("Failed to get content! " + String(error));
         setStatus(false);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchData()
+    fetchData();
   };
 
   useEffect(() => {
