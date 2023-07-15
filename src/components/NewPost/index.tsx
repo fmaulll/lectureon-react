@@ -51,25 +51,32 @@ const NewPost: FC<Props> = ({ onClose }) => {
     e.preventDefault();
     setLoading(true);
 
+    const formData = new FormData()
+
+    formData.append("authorId", String(dataRequest.authorId))
+    formData.append("title", dataRequest.title)
+    formData.append("subTitle", dataRequest.subTitle)
+    formData.append("description", dataRequest.description)
+
+    dataRequest.images.map((image, index) => {
+      formData.append(`image-${index}`, image, image.name)
+    })
+
+    console.log(dataRequest.images)
+
     const fetchData = async () => {
       try {
-        const result = await axios.postForm(`${url}/post`, {
-          id: dataRequest.authorId,
-          title: dataRequest.title,
-          subTitle: dataRequest.subTitle,
-          description: dataRequest.description,
-          images: dataRequest.images,
-        });
+        const result = await axios.postForm(`${url}/post`, formData);
         if (result.status === 201) {
           setMessage("Success create a new post!");
           setStatus(true);
-          onClose();
         }
       } catch (error: any) {
         setMessage("Failed to get content! " + String(error));
         setStatus(false);
       } finally {
         setLoading(false);
+        onClose();
       }
     };
 
