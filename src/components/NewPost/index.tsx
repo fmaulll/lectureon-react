@@ -7,6 +7,7 @@ import * as React from "react";
 import { LayoutContext } from "../../context/LayoutContext";
 import axios from "axios";
 import { url } from "../../helper";
+import { useNavigate } from "react-router-dom";
 
 const initialNewPost = {
   authorId: null,
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ onClose }) => {
+  const navigate = useNavigate()
   const { user, setMessage, setStatus, setLoading } = useContext(LayoutContext);
   const [dataRequest, setDataRequest] = useState<NewPostTypes>(initialNewPost);
 
@@ -53,20 +55,22 @@ const NewPost: FC<Props> = ({ onClose }) => {
 
     const formData = new FormData()
 
-    formData.append("authorId", String(dataRequest.authorId))
+    formData.append("id", String(dataRequest.authorId))
     formData.append("title", dataRequest.title)
     formData.append("subTitle", dataRequest.subTitle)
     formData.append("description", dataRequest.description)
 
     dataRequest.images.map((image, index) => {
-      formData.append(`image-${index}`, image, image.name)
+      formData.append(`image${index + 1}`, image, image.name)
     })
 
-    console.log(dataRequest.images)
+    const config = {     
+        headers: { 'content-type': 'multipart/form-data' }
+    }
 
     const fetchData = async () => {
       try {
-        const result = await axios.postForm(`${url}/post`, formData);
+        const result = await axios.postForm(`${url}/post`, formData, config);
         if (result.status === 201) {
           setMessage("Success create a new post!");
           setStatus(true);
@@ -75,8 +79,11 @@ const NewPost: FC<Props> = ({ onClose }) => {
         setMessage("Failed to get content! " + String(error));
         setStatus(false);
       } finally {
-        setLoading(false);
         onClose();
+        setLoading(false)
+        setTimeout(() => {
+          navigate(0)
+        }, 1000);
       }
     };
 
