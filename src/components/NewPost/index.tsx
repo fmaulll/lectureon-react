@@ -6,7 +6,7 @@ import { BsCardImage } from "react-icons/bs";
 import * as React from "react";
 import { LayoutContext } from "../../context/LayoutContext";
 import axios from "axios";
-import { url } from "../../helper";
+import { url, validateImage } from "../../helper";
 import { useNavigate } from "react-router-dom";
 import ImageAttachment from "../ImageAttachment";
 
@@ -29,14 +29,22 @@ const NewPost: FC<Props> = ({ onClose }) => {
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const [file] = e.target.files;
-      const images = [...dataRequest.images];
-      images.push(file);
-      setDataRequest((prev) => {
-        return {
-          ...prev,
-          images,
-        };
-      });
+      if (validateImage(file.name)) {
+        const images = [...dataRequest.images];
+        images.push(file);
+        setDataRequest((prev) => {
+          return {
+            ...prev,
+            images,
+          };
+        });
+      } else {
+        setMessage("Only accept jpg, jpeg, png, webp extension!");
+        setStatus(false);
+        setTimeout(() => {
+         setMessage("") 
+        }, 1000)
+      }
     }
     e.target.files = null;
   };
