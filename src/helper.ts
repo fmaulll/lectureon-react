@@ -43,4 +43,13 @@ export const initialValue: UserTypes = {
   password: "",
 };
 
-export const url = "http://localhost:9000/api"
+export const url = "http://localhost:9000/api";
+
+export const validateImage = (fileName: string) => {
+  const fileExtension = fileName.split('.').pop()?.toLowerCase() || "";
+  const allowed = ["jpg","jpeg", "png", "webp"]
+    if(allowed?.includes(fileExtension)) {
+      return true
+    }
+  return false
+}
