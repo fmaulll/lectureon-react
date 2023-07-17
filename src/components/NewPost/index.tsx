@@ -8,6 +8,7 @@ import { LayoutContext } from "../../context/LayoutContext";
 import axios from "axios";
 import { url } from "../../helper";
 import { useNavigate } from "react-router-dom";
+import ImageAttachment from "../ImageAttachment";
 
 const initialNewPost = {
   authorId: null,
@@ -90,6 +91,17 @@ const NewPost: FC<Props> = ({ onClose }) => {
     fetchData();
   };
 
+  const handleDeteleImage = (index: number) => {
+    const arr = [...dataRequest.images]
+    arr.splice(index, 1)
+    setDataRequest((prev) => {
+      return {
+        ...prev,
+        images: arr
+      }
+    })
+  }
+
   useEffect(() => {
     setDataRequest({ ...initialNewPost, authorId: user?.sub });
   }, []);
@@ -122,12 +134,7 @@ const NewPost: FC<Props> = ({ onClose }) => {
               ></textarea>
               <div className="grid grid-cols-3 gap-4 overflow-y-scroll mb-4">
                 {dataRequest.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="border rounded-md h-[100px] flex justify-center items-center p-2"
-                  >
-                    <p className="break-all text-xs">{image.name}</p>
-                  </div>
+                  <ImageAttachment image={image} key={index} onClickTrash={() => handleDeteleImage(index)} />
                 ))}
                 <div className="border rounded-md h-[100px]">
                   <label
