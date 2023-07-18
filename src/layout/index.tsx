@@ -5,7 +5,8 @@ import ModalSuccessFailed from "../components/ModalSuccessFailed";
 import Header from "./Header";
 import { useState } from "react";
 import NewPost from "../components/NewPost";
-import {BsPlus} from "react-icons/bs"
+import { BsPlus } from "react-icons/bs";
+import Sidebar from "./Sidebar";
 interface Props {
   children: React.ReactNode;
 }
@@ -19,8 +20,16 @@ const Layout: FC<Props> = ({ children }) => {
       {user ? (
         <div className="min-h-screen relative">
           <Header />
-          {children}
-          <div onClick={() => setOpenNewPost(!openNewPost)} className="fixed right-0 bottom-0 p-2 rounded-full bg-white mr-4 mb-4 cursor-pointer shadow-xl"><BsPlus size={60} /></div>
+          <div className="flex">
+            <Sidebar />
+            <div className="w-full px-[300px] py-[30px] mt-32 z-0 ml-[300px]">{children}</div>
+          </div>
+          <div
+            onClick={() => setOpenNewPost(!openNewPost)}
+            className="fixed right-0 bottom-0 p-2 rounded-full bg-white mr-4 mb-4 cursor-pointer shadow-xl"
+          >
+            <BsPlus size={60} />
+          </div>
         </div>
       ) : (
         <div className=" bg-simple-wallpaper min-h-screen px-24 flex items-center">
