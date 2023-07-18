@@ -8,7 +8,7 @@ const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <div className="h-[100px] px-8 flex items-center justify-between shadow-xl">
+    <div className="bg-[#f0f0f0] h-[100px] px-8 flex items-center justify-between shadow-xl fixed w-full z-10">
       <h1 className="font-bold text-2xl">Lecturon</h1>
       <div className="flex justify-center items-center relative">
         <h3 className="font-bold mr-4">
