@@ -1,10 +1,25 @@
-import { AiFillHome } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
+import { LuNewspaper } from "react-icons/lu";
+import { HiOutlineUsers } from "react-icons/Hi";
 
 const menu = [
   {
     name: "home",
     label: "Home",
-    icon: <AiFillHome size={20} />,
+    icon: <AiOutlineHome size={20} />,
+    url: "/home"
+  },
+  {
+    name: "post",
+    label: "Post",
+    icon: <LuNewspaper size={20} />,
+    url: "/post"
+  },
+  {
+    name: "lecturer",
+    label: "Lecturer",
+    icon: <HiOutlineUsers size={20} />,
+    url: "/lecturer"
   },
 ];
 
