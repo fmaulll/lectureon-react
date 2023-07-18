@@ -35,7 +35,7 @@ const Home = () => {
     fetchData();
   }, []);
   return (
-    <div className="px-[500px] py-[30px]">
+    <div className="">
       {data.length > 0 ? (
         <Fragment>
           {data.map((post, index) => (
