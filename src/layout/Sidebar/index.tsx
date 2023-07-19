@@ -27,7 +27,7 @@ const Sidebar = () => {
   return (
     <div className="bg-[#f0f0f0] w-[300px] shadow-2xl fixed h-screen mt-[100px]">
       {menu.map((item, index) => (
-        <div className="flex items-center px-4 py-4 border">
+        <div key={index} className="flex items-center px-4 py-4 border">
           <div className="mr-2">
 
           {item.icon}
