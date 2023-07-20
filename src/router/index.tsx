@@ -1,8 +1,8 @@
 import Home from "../pages/Home"
 import Lecturer from "../pages/Lecturer"
 import Login from "../pages/Login"
-import Post from "../pages/Post"
 import Signup from "../pages/Signup"
+import Classes from "../pages/Classes"
 
 export const NonAuthRoutes = [
     {
@@ -21,11 +21,11 @@ export const AuthRoutes = [
         component: <Home />
     },
     {
-        path: "/post",
-        component: <Post />
-    },
-    {
         path: "/lecturer",
         component: <Lecturer />
+    },
+    {
+        path: "/classes",
+        component: <Classes />
     },
 ]
