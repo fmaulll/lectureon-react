@@ -18,6 +18,8 @@ export const NonAuthRoutes = [
     },
 ]
 
+// dynamic sidebar menu 
+
 export const AuthRoutes = [
     {
         path: "/home",
