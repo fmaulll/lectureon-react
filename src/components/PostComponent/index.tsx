@@ -24,7 +24,7 @@ const PostComponent: FC<Props> = ({ data }) => {
         </h1>
         <h3 className="text-[#303030]">Author: {" "}
         
-        <Link className="font-bold" to={`/author/${data.authorId}`}>{data.authorName}</Link>
+        <Link className="font-bold" to={`/lecturer/${data.authorId}`}>{data.authorName}</Link>
         </h3>
         <h3 className="font-bold text-xl">{data.subTitle}</h3>
         <p className="text-md">
