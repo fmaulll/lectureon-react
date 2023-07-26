@@ -34,7 +34,7 @@ export const AuthRoutes = [
         path: "/lecturer",
         name: "lecturer",
         label: "Lecturer",
-        icon: <LuNewspaper size={20} />,
+        icon: <HiOutlineUsers size={20} />,
         component: <Lecturer />,
         sidebar: true
     },
@@ -50,7 +50,7 @@ export const AuthRoutes = [
         path: "/classes",
         name: "classes",
         label: "Classes",
-        icon: <HiOutlineUsers size={20} />,
+        icon: <LuNewspaper size={20} />,
         component: <Classes />,
         sidebar: true
     },
