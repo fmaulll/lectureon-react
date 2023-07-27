@@ -56,10 +56,12 @@ const LayoutProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const user = Cookies.get("user");
-
+    
     if (user) {
       setUser(JSON.parse(user));
-    }
+    };
+
+    setAccessToken(Cookies.get("access_token")!)
   }, []);
 
   return (
