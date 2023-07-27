@@ -6,14 +6,19 @@ import { url } from "../../helper";
 import PostComponent from "../../components/PostComponent";
 
 const Home = () => {
-  const { setLoading, setMessage, setStatus } = useContext(LayoutContext);
+  const { setLoading, setMessage, setStatus, accessToken } = useContext(LayoutContext);
   const [data, setData] = useState<PostTypes[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const result = await axios.get(`${url}/post`);
+        const result = await axios.get(`${url}/post`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        });
 
         if (result.status === 200 && result.data) {
           const arr = result.data.map((item: any) => {
