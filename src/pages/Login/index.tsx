@@ -9,7 +9,7 @@ import Jwt from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setLoading, setMessage, setStatus, setAction, setUser } =
+  const { setLoading, setMessage, setStatus, setAction, setUser, setAccessToken } =
     useContext(LayoutContext);
   const [dataRequest, setDataRequest] = useState<UserTypes>({
     ...initialValue,
@@ -40,6 +40,7 @@ const Login = () => {
           navigate("/home");
         });
 
+        setAccessToken(result.data.access_token)
         Cookies.set("access_token", result.data.access_token);
         Cookies.set("refresh_token", result.data.refresh_token);
 
